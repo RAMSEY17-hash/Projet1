@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Joueurs</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+
+<body>
+    <h1>Liste des joueurs inscrits</h1>
+    <div style="background:#f4f6f8;padding:10px 20px;margin-bottom:20px;border-radius:8px;max-width:900px;">
+        <strong>Statistiques :</strong><br>
+        Total joueurs : {{ total }}<br>
+        Moyenne d'âge : {{ moyenne_age|round(1) if moyenne_age else '-' }}<br>
+        <u>Par poste :</u>
+        <ul style="display:inline-block;margin:0 20px 0 0;">
+            {% for poste, count in par_poste %}
+            <li>{{ poste }} : {{ count }}</li>
+            {% endfor %}
+        </ul>
+        <u>Par équipe :</u>
+        <ul style="display:inline-block;">
+            {% for equipe, count in par_equipe %}
+            <li>{{ equipe or '-' }} : {{ count }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="/export-csv" style="display:inline-block;margin-bottom:15px;background:#16a085;color:white;padding:8px 16px;border-radius:5px;text-decoration:none;">Exporter CSV</a>
+    <form method="get" style="margin-bottom: 20px;">
+        <input type="text" name="nom" placeholder="Nom" value="{{ request.args.get('nom', '') }}">
+        <input type="text" name="prenom" placeholder="Prénom" value="{{ request.args.get('prenom', '') }}">
+        <input type="number" name="age" placeholder="Âge" min="5" max="50" value="{{ request.args.get('age', '') }}">
+        <select name="poste">
+            <option value="">Poste</option>
+            <option value="Gardien" {% if request.args.get('poste') == 'Gardien' %}selected{% endif %}>Gardien</option>
+            <option value="Défenseur" {% if request.args.get('poste') == 'Défenseur' %}selected{% endif %}>Défenseur</option>
+            <option value="Milieu" {% if request.args.get('poste') == 'Milieu' %}selected{% endif %}>Milieu</option>
+            <option value="Attaquant" {% if request.args.get('poste') == 'Attaquant' %}selected{% endif %}>Attaquant</option>
+        </select>
+        <input type="number" name="dossard" placeholder="Dossard" min="1" max="99" value="{{ request.args.get('dossard', '') }}">
+        <input type="text" name="equipe" placeholder="Équipe" value="{{ request.args.get('equipe', '') }}">
+        <button type="submit">Rechercher</button>
+        <a href="/liste" style="margin-left:10px;">Réinitialiser</a>
+    </form>
+    <table border="5">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Âge</th>
+                <th>Poste</th>
+                <th>Dossard</th>
+                <th>Équipe</th>
+                <th>Actions</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for joueur in joueurs %}
+            <tr>
+                <td>{{ joueur.nom }}</td>
+                <td>{{ joueur.prenom }}</td>
+                <td>{{ joueur.age }}</td>
+                <td>{{ joueur.poste }}</td>
+                <td>{{ joueur.dossard }}</td>
+                <td>
+                    {% if joueur.photo %}
+                        <img src="/static/photos/{{ joueur.photo }}" alt="Photo" style="width:50px;height:50px;object-fit:cover;border-radius:50%;">
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ joueur.equipe or '-' }}</td>
+                <td>
+                    <form action="/supprimer/{{ joueur.id }}" method="post" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Supprimer ce joueur ?');">Supprimer</button>
+                    </form>
+                    <a href="/modifier/{{ joueur.id }}">Modifier</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/admin-logout">Déconnexion</a>
+</body>
+
+</html>

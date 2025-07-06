@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion Admin</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+    <h1>Connexion Administrateur</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color:red;">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post">
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" required><br>
+        {% if require_2fa %}
+        <label for="code_2fa">Code 2FA :</label>
+        <input type="text" id="code_2fa" name="code_2fa" required><br>
+        {% endif %}
+        <button type="submit">Se connecter</button>
+    </form>
+</body>
+</html>

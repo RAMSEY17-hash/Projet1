@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier Joueur</title>
+    <link rel="stylesheet" href="/static/css/inscription.css">
+</head>
+<body>
+    <h1>Modifier un joueur</h1>
+    <form method="post">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" value="{{ joueur.nom }}" required><br>
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" value="{{ joueur.prenom }}" required><br>
+        <label for="age">Âge :</label>
+        <input type="number" id="age" name="age" min="5" max="50" value="{{ joueur.age }}" required><br>
+        <label for="poste">Poste :</label>
+        <select id="poste" name="poste" required style="width: 100%; padding: 8px; margin-bottom: 16px; border: 1px solid #ccc; border-radius: 4px;">
+            <option value="">--Choisir un poste--</option>
+            <option value="Gardien" {% if joueur.poste == 'Gardien' %}selected{% endif %}>Gardien</option>
+            <option value="Défenseur" {% if joueur.poste == 'Défenseur' %}selected{% endif %}>Défenseur</option>
+            <option value="Milieu" {% if joueur.poste == 'Milieu' %}selected{% endif %}>Milieu</option>
+            <option value="Attaquant" {% if joueur.poste == 'Attaquant' %}selected{% endif %}>Attaquant</option>
+        </select><br>
+        <label for="dossard">Dossard :</label>
+        <input type="number" id="dossard" name="dossard" min="1" max="99" value="{{ joueur.dossard }}" required><br><br>
+        <button type="submit">Enregistrer</button>
+        <button type="button" onclick="window.location.href='/liste'">Annuler</button>
+    </form>
+</body>
+</html>

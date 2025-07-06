@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil - Inscriptions Football</title>
+    <link rel="stylesheet" href="/static/css/acceuil.css">
+</head>
+<body>
+    <a href="/admin-login" style="position: absolute; top: 20px; left: 20px; text-decoration: none; background: #8e44ad; color: white; padding: 8px 16px; border-radius: 5px; font-weight: bold;">Admin</a>
+    <h1>Bienvenue sur la plateforme d'inscription au football</h1>
+    <p>Pour participer, veuillez lire les modalités d'inscription puis cliquer sur "Poursuivre".</p>
+    <ul>
+        <li>Remplissez le formulaire avec vos informations réelles.</li>
+        <li>Un seul dossier par joueur est accepté.</li>
+        <li>Les informations doivent être exactes pour valider l'inscription.</li>
+    </ul>
+    <form action="/inscription" method="get">
+        <button type="submit">Poursuivre</button>
+    </form>
+</body>
+</html>
