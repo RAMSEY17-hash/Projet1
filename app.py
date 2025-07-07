@@ -1,8 +1,6 @@
 
 # ------------------- IMPORTS ET CONFIGURATION -------------------
 import sqlite3
-import logging
-logging.basicConfig(level=logging.INFO)
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
