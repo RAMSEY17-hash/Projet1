@@ -7,7 +7,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 
 app = Flask(__name__)
 app.secret_key = 'votre_cle_secrete_a_modifier'  # À personnaliser !
-app.logger.setLevel(logging.INFO)
 DB_NAME = 'joueurs.db'
 
 # ------------------- ROUTES ET FONCTIONS -------------------
@@ -259,4 +258,6 @@ def admin_logout():
 if __name__ == '__main__':
     init_db()
     port = int(os.environ.get('PORT', 5000))
+    app.logger.setLevel(logging.INFO)
     app.run(debug=True, host='0.0.0.0', port=port)
+    
