@@ -1,11 +1,13 @@
 
 # ------------------- IMPORTS ET CONFIGURATION -------------------
 import sqlite3
+import logging
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
 app.secret_key = 'votre_cle_secrete_a_modifier'  # À personnaliser !
+app.logger.setLevel(logging.INFO)
 DB_NAME = 'joueurs.db'
 
 # ------------------- ROUTES ET FONCTIONS -------------------
