@@ -1,6 +1,8 @@
 
 # ------------------- IMPORTS ET CONFIGURATION -------------------
 import sqlite3
+import logging
+logging.basicConfig(level=logging.INFO)
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
@@ -231,7 +233,7 @@ def admin_login():
                 code = str(random.randint(100000, 999999))
                 session['2fa_code'] = code
                 session['2fa_step'] = True
-                print(f"[2FA DEMO] Code 2FA pour admin : {code}")
+                app.logger.info(f"[2FA DEMO] Code 2FA pour admin : {code}")
                 flash('Entrez le code 2FA affiché dans la console.')
                 return render_template('admin_login.html', require_2fa=True)
             else:
