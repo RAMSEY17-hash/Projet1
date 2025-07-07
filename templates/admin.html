@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Administration - Liste des Joueurs</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+    <h1>Liste des joueurs inscrits</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Âge</th>
+                <th>Poste</th>
+                <th>Dossard</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for joueur in joueurs %}
+            <tr>
+                <td>{{ joueur.nom }}</td>
+                <td>{{ joueur.prenom }}</td>
+                <td>{{ joueur.age }}</td>
+                <td>{{ joueur.poste }}</td>
+                <td>{{ joueur.dossard }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
