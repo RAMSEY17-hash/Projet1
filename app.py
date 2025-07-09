@@ -246,7 +246,6 @@ def admin_login():
                 session.pop('2fa_step', None)
                 return redirect(url_for('liste'))
             else:
-                flash('Code 2FA incorrect.')
                 return render_template('admin_login.html', require_2fa=True)
     return render_template('admin_login.html')
 
