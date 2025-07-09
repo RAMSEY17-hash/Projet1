@@ -6,6 +6,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
+app.logger.setLevel(logging.INFO)
 app.secret_key = 'votre_cle_secrete_a_modifier'  # À personnaliser !
 DB_NAME = 'joueurs.db'
 
@@ -233,6 +234,7 @@ def admin_login():
                 session['2fa_code'] = code
                 session['2fa_step'] = True
                 app.logger.info(f"[2FA DEMO] Code 2FA pour admin : {code}")
+                print(f"[2FA DEMO] Code 2FA pour admin : {code}")
                 flash('Entrez le code 2FA affiché dans la console.')
                 return render_template('admin_login.html', require_2fa=True)
             else:
@@ -260,6 +262,5 @@ def admin_logout():
 if __name__ == '__main__':
     init_db()
     port = int(os.environ.get('PORT', 5000))
-    app.logger.setLevel(logging.INFO)
     app.run(debug=True, host='0.0.0.0', port=port)
     
